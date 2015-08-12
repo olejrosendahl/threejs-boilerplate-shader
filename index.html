@@ -1,0 +1,81 @@
+<html>
+  <head>
+    <title>ThreeJS - Boilerplate</title>
+    <style>
+      body {
+        margin: 0px;
+        padding: 0px;
+        overflow: none;
+      }
+    </style>
+  </head>
+  <body>
+    <script type="text/javascript" src="js/three.js"></script>
+    <script type="x-shader/x-vertex" id="vertexShader">
+      varying vec2 vUv;
+
+      void main() {
+        vUv = uv;
+
+        gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+      }
+    </script>
+    <script type="x-shader/x-fragment" id="fragmentShader">
+      varying vec2 vUv;
+
+      void main() {
+        gl_FragColor = vec4(vec3(vUv, 1.0), 0.0);
+      }
+    </script>
+    <script type="text/javascript">
+      var camera, renderer, scene, clock, delta;
+
+      function setup() {
+        setupThreeJS();
+        setupWorld();
+
+        requestAnimationFrame(function animate() {
+            renderer.render(scene, camera);
+
+            delta = clock.getDelta();
+            box.rotation.x += delta;
+            box.rotation.y += delta;
+
+            requestAnimationFrame(animate);
+        });
+      }
+
+      function setupThreeJS() {
+        camera = new THREE.PerspectiveCamera(75,
+            window.innerWidth / window.innerHeight, 1, 10000);
+        camera.position.z = 20;
+
+        renderer = new THREE.WebGLRenderer({antialiasing: true});
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setClearColor(0x000000);
+
+        scene = new THREE.Scene();
+        clock = new THREE.Clock();
+
+        document.body.appendChild(renderer.domElement);
+      }
+
+      function setupWorld() {
+        box = new THREE.Mesh(
+            new THREE.BoxGeometry(10, 10, 10),
+            new THREE.ShaderMaterial({
+              vertexShader: document.getElementById("vertexShader").text,
+              fragmentShader: document.getElementById("fragmentShader").text,
+            })
+        );
+        scene.add(box);
+
+        var pointLight = new THREE.PointLight(0xffffff, 1.0);
+        pointLight.position.z = 100;
+        scene.add(pointLight);
+      }
+
+      setup();
+    </script>
+  </body>
+</html>
