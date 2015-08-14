@@ -10,6 +10,7 @@ every release.
 ## Dependencies
 
 - three.js r71
+- WebGL detector
 
 ## Changelog
 
