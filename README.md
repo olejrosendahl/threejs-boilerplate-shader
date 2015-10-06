@@ -14,6 +14,10 @@ every release.
 
 ## Changelog
 
+### [0.1.1] - 2015-09-19
+#### Changed
+- Use three.js r72
+
 ### [0.1.0] - 2015-08-12
 #### Added
 - Added three.js setup code and spinning cube animation and custom
