@@ -14,6 +14,10 @@ every release.
 
 ## Changelog
 
+### [0.1.2] - 2015-10-06
+#### Added
+- Update viewport on window resize
+
 ### [0.1.1] - 2015-09-19
 #### Changed
 - Use three.js r72
